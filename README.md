@@ -4,7 +4,6 @@ My personal dotfiles of twm
 Applications:
 
 File manager  -  thunar
-
 Screenshot  -  xfce4-screenshooter
 Terminal  -  alacritty, gnome-terminal
 Music  -  mocp
