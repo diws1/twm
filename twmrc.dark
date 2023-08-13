@@ -1,0 +1,282 @@
+#### TWMRC FILE (DARK) ####
+
+### GENERAL SETTINGS ###
+
+NoDefaults				#Disable for default button on titlebar	
+#DontMoveOff				#Disable for free move window 
+AutoRelativeResize
+NoGrabServer				#Disable for show the window shadow when you move it
+NoHighlight				#Disable if you want hightlight when switching window
+RandomPlacement				#Disable for manual placement of window
+#RestartPreviousState
+#DecorateTransients
+opaqueMove				#Disable for show the window shadow when you move it (like NoGrabServer)
+#NoMenuShadows
+IconifyByUnmapping			#Disable for clean screen after hide (iconify) the window
+IconBorderWidth		0		#Icon border (px)
+BorderWidth		0 		#Window border (px)
+IconManagerGeometry	"90x5+20+45" 	#Icon Manager Geometry
+MenuBorderWidth		3		#Menu border (px)
+ShowIconManager				#Disable for hide the icon manager
+SortIconManager				#This Fiture will be sorted applications by alphabet on icon manager 
+NoTitleHighlight 			#Disable if you want hightlight efect on titlebar when switching window
+#NoStackMode
+#NoTitleFocus 
+#NoBackingStore
+TitleButtonBorderWidth	0		#Border of the title button (px)
+#ConstrainedMoveTime	200
+
+
+
+### FONTS ###
+
+TitleFont       "-*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*"
+MenuFont        "-*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*"
+ResizeFont      "-*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*"
+IconFont        "-*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*"
+IconManagerFont "-*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*"
+
+
+
+### COLORS ###
+
+Color {
+        BorderColor             "#C5C8C6"
+        DefaultBackground       "#1B1F26"
+        DefaultForeground       "#C5C8C6"
+        TitleBackground         "#C5C8C6"
+        TitleForeground         "#1D1F21"
+        MenuBackground          "#1B1F26"
+        MenuForeground          "#C5C8C6"
+        MenuBorderColor         "#1B1F26"
+        MenuTitleBackground     "#C5C8C6"
+        MenuTitleForeground     "#1D1F21"
+        IconBackground          "#C5C8C6"
+        IconForeground          "#1D1F21"
+        IconBorderColor         "#C5C8C6"
+        IconManagerBackground   "#C5C8C6"
+        IconManagerForeground   "#1D1F21"
+}
+
+
+
+### ICONS ON TITLEBAR ###
+
+IconDirectory		"/home/diws/.twm/"	
+RightTitleButton	"hide.xbm"	= f.iconify
+RightTitleButton	"full.xbm"	= f.fullzoom
+RightTitleButton	"close.xbm"	= f.delete
+
+
+
+### WINDOW DECORATIONS ###
+
+NoTitle {
+	"TWM Icon Manager"
+	#"polybar"
+	#"alacritty"
+	#"thunar"
+	#"xfce4-screenshooter"
+	#"New Tab - Brave"
+	#"chromium"
+	#"firefox"
+	#"nitrogen"
+	#"feh"
+}
+
+#SqueezeTitle {
+#	"alacritty"	center	0	0
+#}
+
+NoBorder {
+        "TWM Icon Manager"
+        #"polybar"
+	#"New Tab - Brave"
+}
+
+#IconManagerDontShow {
+	#"polybar"
+#}
+
+
+
+### SPECIAL FUNCTIONS ###
+
+AutoRaise {
+	"TWM Icon Manager"
+	#"polybar"
+	"alacritty"
+	"xfce4-screenshooter"
+	#"nitrogen"
+}
+
+
+
+### BUTTON1 (Left Click) FUNCTION ###
+
+Button1		=	: root		: f.menu "main"
+Button1		=	: iconmgr	: f.deiconify
+Button1		=	: title		: f.move
+
+
+
+### MENU (Left Click) ###
+
+menu "main" {
+		"Menu"					f.title
+		""		("#1D1F21":"#1D1F21")	f.title
+                "Terminal"				f.exec "gnome-terminal &"
+		"File Manager"				f.exec "thunar &"
+		"Browser"				f.exec "brave-browser &"
+		"Screenshot"				f.exec "xfce4-screenshooter &"
+                "Show Apps"				f.showiconmgr
+                "Hide Apps"				f.hideiconmgr
+		""		("#1D1F21":"#1D1F21")	f.title
+		"Move"					f.move
+                "Resize"				f.resize
+		"Hide"					f.iconify
+		"Close"					f.delete
+		""		("#1D1F21":"#1D1F21")	f.title
+                "Restart"				f.restart
+                "Lock"					f.exec "xtrlock &"
+}
+
+
+
+### BUTTON3 (Right Click) FUNCTION ###
+
+Button3         =       : root          : f.menu "apps"
+
+
+
+### MENU (Right Click) ###
+
+menu "apps" {
+                "Apps"					f.title
+                ""              ("#1D1F21":"#1D1F21")   f.title
+                "Develop"				f.menu "developments"
+		"Games"					f.menu "games"
+		"Graphics"				f.menu "graphics"
+                "Internet"				f.menu "internet"
+                "Media"					f.menu "media"
+                "Office"				f.menu "office"
+                "Settings"				f.menu "settings"
+		"System"				f.menu "system"
+		"Terminal"				f.menu "terminal"
+		"WM ops"				f.menu "wmoptions"
+}
+
+	menu "developments" {
+			"Arduino"				f.exec "arduino &"
+			"Fritzing"				f.exec "fritzing &"
+			"Vmachine"				f.exec "virtualbox &"	
+	}
+
+	menu "games" {
+			"Pacman"				f.exec "alacritty -e pacman4console &"
+			"Snake"					f.exec "alacritty -e nsnake &"
+			"Tetris"				f.exec "alacritty -e bastet &"			
+	}
+
+	menu "graphics" {
+			"Gimp"					f.exec "gimp &"
+			"Inkscape"				f.exec "inkscape &"
+			"Krita"					f.exec "krita &"
+	}
+
+	menu "internet" {
+			"Brave"					f.exec "brave-browser &"
+			"Chromium"				f.exec "chromium &"
+			"Firefox"				f.exec "firefox &"
+	}
+
+	menu "media" {
+			"Audacity"				f.exec "audacity &"
+			"Cava"					f.exec "gnome-terminal -e cava &"
+			"Kdenlive"				f.exec "kdenlive &"
+			"Moc"					f.exec "gnome-terminal -e mocp &"
+			"Olive"					f.exec "olive-editor &"
+	}
+
+	menu "office" {
+			"Calc"					f.exec "localc &"
+			"Draw"					f.exec "lodraw &"
+			"Impress"				f.exec "loimpress &"
+			"Writer"				f.exec "lowriter &"
+	}
+
+	menu "settings" {
+			"Appearance"				f.exec "lxappearance &"
+			"Wallpaper"				f.exec "nitrogen &"
+	}
+
+	menu "system" {
+			"gtop"					f.exec "alacritty -e gtop &"
+			"htop"					f.exec "alacritty -e htop &"
+			"xload"					f.exec "alacritty -e xload &"
+	}
+
+	menu "terminal" {
+			"alacritty"				f.exec "alacritty &"
+			"terminator"				f.exec "terminator &"
+			"gnome-term"				f.exec "gnome-terminal &"
+	}
+
+	menu "wmoptions" {
+			"Restart"				f.restart
+			"Suspend"				f.exec "systemctl suspend"
+			"Switch"				f.menu "switch"
+			"Exit"					f.quit
+			"Shutdown"				f.menu "shutdown"
+	}
+		
+		menu "switch"	{
+				"awesome"				f.startwm "awesome"
+				"dwm"					f.startwm "dwm"
+		}
+
+		menu "shutdown" {
+				"Are you sure?"                         f.title
+				""              ("#1D1F21":"#1D1F21")   f.title
+				"Yes"                                   f.exec "systemctl poweroff"
+				"No"                                    f.restart
+		}
+
+
+
+### KEYBINDS ###
+
+## Window
+"x"	= m4	: all	: f.focus
+"w"	= m4	: all	: f.iconify
+"f"	= m4	: all	: f.fullzoom
+"z"	= m4	: all	: f.move
+"q"	= m4	: all	: f.warptoiconmgr ""
+"q"	= m4|s	: all	: f.upiconmgr
+"a"	= m4|s	: all	: f.downiconmgr
+"c"	= m4|s	: all	: f.delete
+"c"	= m4|c	: all	: f.destroy
+"r"	= m4|c	: all	: f.restart
+"Escape"= m4	: all	: f.quit
+"Escape"= m4|s	: all	: f.startwm "dwm"	
+
+## Brightness and Volume
+"XF86MonBrightnessUp"	=	: all	: f.exec "brightnessctl set +5% ; . ~/.config/dunst/bright.dunst.sh &"
+"XF86MonBrightnessDown"	=	: all	: f.exec "brightnessctl set 5%- ; . ~/.config/dunst/bright.dunst.sh &"
+
+"XF86AudioRaiseVolume"	=	: all	: f.exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+ ; . ~/.config/dunst/vol.dunst.sh &" 
+"XF86AudioLowerVolume"  =       : all   : f.exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%- ; . ~/.config/dunst/vol.dunst.sh &"
+"XF86AudioMute"		=       : all   : f.exec "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+"XF86AudioMicMute"	=       : all   : f.exec "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+
+## Application Launch
+"a"     = m4    : all   : f.exec "gnome-terminal &"
+"d"     = m4    : all   : f.exec "thunar &"
+"b"     = m4    : all   : f.exec "brave-browser &"
+"s"     = m4    : all   : f.exec "xfce4-screenshooter &"
+"Print"	= 	: all	: f.exec "scrot Pictures/Screenshots/scrot_%a-%d%b%y_%R.png"
+"m"     = m4    : all   : f.exec "gnome-terminal -e mocp &"
+"m"	= m4|s	: all	: f.exec "gnome-terminal -e cava &"
+"space"	= m4    : all   : f.exec "rofi -show drun"
+"Delete"= m4	: all	: f.exec "xtrlock &"
+

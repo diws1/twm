@@ -1,0 +1,78 @@
+Config { font = "Terminus (TTF) 9" 
+       , additionalFonts = ["FontAwesome 8"]
+       , borderColor = "#1B1F26"
+       , border = FullB
+       , bgColor = "#1B1F26"
+       , fgColor = "#C5C8C6"
+       , position = Static {xpos = 3 , ypos = 3 , width = 1360 , height = 26}
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = True 
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , textOutputFormat = Ansi
+       , commands = [ Run Weather "EGPF" ["-t","<station>: <tempC>C",
+                                          "-L","18","-H","25",
+                                          "--normal","green",
+                                          "--high","red",
+                                          "--low","lightblue"] 36000
+
+	            , Run DynNetwork     [ "--template" , "   <tx>kB/s <rx>kB/s"
+					 , "--Low"      , "1000"       -- units: B/s
+					 , "--High"     , "5000"       -- units: B/s
+					 , "--low"      , "#A3BE8C"
+					 , "--normal"   , "darkorange"
+					 , "--high"     , "#BF616A"
+					 ] 10
+
+		    , Run CoreTemp       [ "--template" , "  <core0>°C <core1>°C"
+					 , "--Low"      , "70"        -- units: °C
+					 , "--High"     , "80"        -- units: °C
+					 , "--low"      , "#C5C8C6"
+					 , "--normal"   , "darkorange"
+					 , "--high"     , "#BF616A"
+					 ] 50
+
+		    , Run Battery        [ "--template" , "  <acstatus>"
+					 , "--Low"      , "20"        -- units: %
+					 , "--High"     , "80"        -- units: %
+					 , "--low"      , "#BF616A"
+					 , "--normal"   , "#C5C8C6"
+					 , "--high"     , "#C5C8C6"
+
+					 , "--" -- battery specific options
+						   -- discharging status
+						   , "-o"	, "<left>%"
+						   -- AC "on" status
+						   , "-O"	, "<fc=#C5C8C6><left>%</fc>"
+						   -- charged status
+						   , "-i"	, "<fc=#C5C8C6><left>%</fc>"
+					 ] 50
+
+                    , Run Network "eth0" ["-L","0","-H","32",
+                                          "--normal","green","--high","red"] 10
+
+                    , Run Network "eth1" ["-L","0","-H","32",
+                                          "--normal","green","--high","red"] 10
+
+                    , Run Cpu ["--template", "  <total>%",
+				"-L","3","-H","50",
+                               "--normal","darkorange","--high","#BF616A"] 10
+
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+
+                    , Run Com "uname" ["-s","-r"] "" 36000
+
+                    , Run Date "%a %b %d %R" "date" 10
+                    ]
+
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " <fc=#B48EAD>  </fc><fc=#C5C8C6>diws</fc> | %uname% | %dynnetwork% }\
+		    \{ %coretemp% | %cpu% | %battery% | <fc=#8FBCBB> %memory% %swap%</fc> | <fc=#A3BE8C><fn=0> %date%</fn></fc> "
+       }
